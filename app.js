@@ -38,8 +38,8 @@ function managerPrompts() {
 
     ]).then(function(answers) {
         const manager = new Manager(answers.name, parseInt(answers.id), answers.email, parseInt(answers.office));
-        //teamMember = fs.readFileSync("templates/manager.html");
-        //teamHTML = teamHTML + "\n" + eval('`' + teamMember + '`');
+        teamMember = fs.readFileSync("templates/manager.html");
+        teamHTML = teamHTML + "\n" + eval('`' + teamMember + '`');
         teamMembers.push(manager);
         addMember();
     });
@@ -92,8 +92,8 @@ function createEngineer() {
 
     ]).then(function(answers) {
         const engineer = new Engineer(answers.name, parseInt(answers.id), answers.email, answers.github);
-        // teamMember = fs.readFileSync("templates/engineer.html");
-        // teamHTML = teamHTML + "\n" + eval('`' + teamMember + '`');
+        teamMember = fs.readFileSync("templates/engineer.html");
+        teamHTML = teamHTML + "\n" + eval('`' + teamMember + '`');
         teamMembers.push(engineer);
         addMember();
     });

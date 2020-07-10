@@ -1,11 +1,10 @@
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
 const Intern = require("./lib/Intern");
-const Main = require("./lib/Employee");
+const Employee = require("./lib/Employee");
 const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
-
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
@@ -15,7 +14,7 @@ const render = require("./lib/htmlRenderer");
 const teamMembers = [];
 let teamHTML = "";
 
-function createManager() {
+function managerPrompts() {
     inquirer.prompt([{
             type: "input",
             name: "name",
@@ -39,8 +38,8 @@ function createManager() {
 
     ]).then(function(answers) {
         const manager = new Manager(answers.name, parseInt(answers.id), answers.email, parseInt(answers.office));
-        teamMember = fs.readFileSync("templates/manager.html");
-        teamHTML = teamHTML + "\n" + eval('`' + teamMember + '`');
+        //teamMember = fs.readFileSync("templates/manager.html");
+        //teamHTML = teamHTML + "\n" + eval('`' + teamMember + '`');
         teamMembers.push(manager);
         addMember();
     });
@@ -93,8 +92,8 @@ function createEngineer() {
 
     ]).then(function(answers) {
         const engineer = new Engineer(answers.name, parseInt(answers.id), answers.email, answers.github);
-        teamMember = fs.readFileSync("templates/engineer.html");
-        teamHTML = teamHTML + "\n" + eval('`' + teamMember + '`');
+        // teamMember = fs.readFileSync("templates/engineer.html");
+        // teamHTML = teamHTML + "\n" + eval('`' + teamMember + '`');
         teamMembers.push(engineer);
         addMember();
     });
@@ -132,11 +131,14 @@ function createIntern() {
     });
 }
 const mainHTML = fs.readFileSync("templates/main.html");
+// const internHTML = fs.readFileSync("templates/intern.html");
+// const engineerHTML = fs.readFileSync("templates/engineer.html");
+// const managerHTML = fs.readFileSync("templates/manager.html");
 
-// Use eval to implement template literals in main.html and places teamHTML inside main template
+
 teamHTML = eval('`' + mainHTML + '`');
 
-// write file to new team.html file
+
 fs.writeFile("team.html", teamHTML, function(err) {
 
     if (err) {
@@ -147,7 +149,5 @@ fs.writeFile("team.html", teamHTML, function(err) {
 
 });
 
-// console.log(teamHTML);
 
-
-createManager();
+managerPrompts();
